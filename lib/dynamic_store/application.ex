@@ -5,7 +5,11 @@ defmodule DS.Application do
 
   use Application
 
+  require Logger
+
   def start(_type, _args) do
+    Logger.info "starting dynamic_store"
+
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: DS.Worker.start_link(arg)

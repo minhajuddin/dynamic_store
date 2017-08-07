@@ -9,8 +9,7 @@ RUN mix release \
 FROM bitwalker/alpine-elixir:1.5.1
 WORKDIR /opt/app
 COPY --from=builder /opt/build/_build/prod/rel/dynamic_store/releases/*/dynamic_store.tar.gz .
-RUN apk --no-cache add ca-certificates && \
-  tar xzf dynamic_store.tar.gz && \
+RUN tar xzf dynamic_store.tar.gz && \
   rm dynamic_store.tar.gz
 CMD ["bin/dynamic_store", "foreground"]
 
