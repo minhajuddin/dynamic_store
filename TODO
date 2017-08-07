@@ -1,0 +1,13 @@
+# TODO
+  - Should be able to spin this on 5 instances
+  - Should be able to query this data even when other instances are stopped, started.
+  - Should be able to handle huge loads of queries. e.g. Paris, London
+
+
+  - Spin up 5 docker instances with our code.
+  - Stop one instance at random for 5 minutes
+  - Start it back up
+  - Check if all the data is still visible across 5 nodes
+  - Benchmark read/write performance
+  - Upgrade code using a new build and deploy across nodes one by one
+  - Check if all the data is still visible
