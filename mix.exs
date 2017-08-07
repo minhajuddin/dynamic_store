@@ -23,6 +23,8 @@ defmodule DS.Mixfile do
   defp deps do
     [
       {:distillery, "~> 1.4"},
+      {:plug, "~> 1.4.3"},
+      {:cowboy, "~> 1.1"},
     ]
   end
 end

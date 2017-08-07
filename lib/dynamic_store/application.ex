@@ -12,8 +12,8 @@ defmodule DS.Application do
 
     # List all child processes to be supervised
     children = [
-      # Starts a worker by calling: DS.Worker.start_link(arg)
-      # {DS.Worker, arg},
+      Plug.Adapters.Cowboy.child_spec(:http, KvPlug, [], [port: 5000]),
+      DB,
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
