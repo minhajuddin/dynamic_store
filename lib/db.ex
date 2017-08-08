@@ -1,6 +1,9 @@
 defmodule DB do
   use GenServer
 
+  require Record
+  Record.defrecord :search, [id: nil, data: nil]
+
   def start_link(_opts \\ []) do
     IO.puts "mnesia config: #{inspect Application.get_all_env(:mnesia)}"
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
@@ -21,7 +24,7 @@ defmodule DB do
 
   # call this after doing init
   def create_tables(nodes) do
-    :mnesia.create_table(Search, [
+    :mnesia.create_table(:search, [
       attributes: [:id, :data],
       disc_copies:  nodes,
       type: :set, # :ordered_set, :bag
@@ -30,13 +33,13 @@ defmodule DB do
 
   def put(search_id, data) do
     :mnesia.transaction(fn ->
-      :mnesia.write({Search, search_id, data})
+      :mnesia.write({:search, search_id, data})
     end)
   end
 
   def get(search_id) do
     :mnesia.transaction(fn ->
-      :mnesia.read(Search, search_id)
+      :mnesia.read(:search, search_id)
     end) |> inspect
   end
 
