@@ -2,6 +2,7 @@ defmodule DB do
   use GenServer
 
   def start_link(_opts \\ []) do
+    IO.puts "mnesia config: #{inspect Application.get_all_env(:mnesia)}"
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 

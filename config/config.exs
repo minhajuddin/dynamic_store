@@ -3,7 +3,7 @@
 use Mix.Config
 
 config :mnesia,
-  dir: (Path.expand("../db", __DIR__) |> to_charlist)
+  dir: '/opt/app/db' # this is the location of the volume that is mounted in docke
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
@@ -30,4 +30,7 @@ config :mnesia,
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
-#     import_config "#{Mix.env}.exs"
+env_config = Path.expand("#{Mix.env}.exs", __DIR__)
+if File.exists?(env_config) do
+  import_config env_config
+end
