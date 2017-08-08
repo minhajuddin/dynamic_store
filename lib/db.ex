@@ -39,10 +39,15 @@ defmodule DB do
     end)
   end
 
+  require Logger
   def get(search_id) do
-    :mnesia.transaction(fn ->
-      :mnesia.read(:search, search_id)
-    end) |> inspect
+    case :mnesia.transaction(fn -> :mnesia.read(:search, search_id) end) do
+      {:atomic, [{:search, ^search_id, data}]} -> {:ok, data}
+      {:atomic, []} -> :not_found
+      oops ->
+        Logger.error(inspect oops)
+        :not_found
+    end
   end
 
 end
