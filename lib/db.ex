@@ -16,6 +16,8 @@ defmodule DB do
   # initializes the mnesia database
   defp init_state(state) do
     nodes = [node()]
+    # stop mnesia if it has already been started
+    :rpc.multicall(nodes, :mnesia, :stop, []) |> IO.inspect(label: "STOP MNESIA")
     :mnesia.create_schema(nodes) |> IO.inspect(label: "SCHEMA")
     :rpc.multicall(nodes, :mnesia, :start, []) |> IO.inspect(label: "START")
     create_tables(nodes)
